@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-partners-openapi.yml, openapi/cachet-verify-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: x-api-username
+  type: apiKey
+  in: header
+  parameter: x-api-username
+  description: Username provided by Cachet IT
+  sources:
+  - openapi/cachet-parking-openapi.yml
+  - openapi/cachet-partners-openapi.yml
+  - openapi/cachet-verify-openapi.yml
+- name: x-api-key
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: API Key provided by Cachet IT
+  sources:
+  - openapi/cachet-parking-openapi.yml
+  - openapi/cachet-partners-openapi.yml
+  - openapi/cachet-verify-openapi.yml
