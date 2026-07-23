@@ -1,0 +1,185 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Cachet Parking Connect Gig-Events API
+  termsOfService: https://cachet.me/en/terms-conditions/terms-of-use/
+  contact:
+    name: Cachet OÜ
+    url: https://cachet.me
+    email: devs@cachet.me
+  license:
+    name: Copyright (C) Cachet OÜ - All Rights Reserved
+    url: https://cachet.me/en/terms-conditions/terms-of-use/
+  x-logo:
+    url: web/logo.png
+  description: "# Introduction\n\nCachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets. Cachet offers a full parking solution  where you just send us the coordinates of the events and Cachet will handle everything else. \n\n# Getting started\n\n1. Contact Cachet to get access to the API at kalle@cachet.me\n2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take actions and manage your parking.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n"
+servers:
+- url: https://platform-api.cachet.me
+  description: Production
+- description: Development
+  url: https://dev-platorm-api.cachet.me
+security:
+- x-api-username: []
+  x-api-key: []
+tags:
+- name: Gig-Events
+  description: Event actions which are sent by the platform to Cachet involving gig-workers tasks done on the platform
+paths:
+  /create-gig-event:
+    post:
+      tags:
+      - Gig-Events
+      summary: /create-gig-event
+      operationId: post-create-gig-event
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+      description: Endpoint for sending gig-worker tasks related events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGigEventInput'
+components:
+  schemas:
+    CreateGigEventInput:
+      title: CreateTaskInput
+      type: object
+      description: Input of the /create-gig-event endpoint
+      examples:
+      - type: TASK_STARTED
+        extUserId: '56'
+        time: '2022-01-24T12:46:40.208Z'
+        data:
+          reference: '634'
+      - type: TASK_ENDED
+        extUserId: '56'
+        time: '2022-01-24T13:46:40.208Z'
+        data:
+          reference: '634'
+      properties:
+        type:
+          type: string
+          enum:
+          - TASK_START
+          - TASK_END
+          - COMPLETED_TASK
+          description: "Event type:\n  * `TASK_START` - In case real-time events are send, this indicates START of the task \n  * `TASK_END` - In case real-time events are send, this indicates END of the task \n  * `COMPLETED_TASK` - In case START and END are already known and Task is completed\n"
+          example: TASK_STARTED
+        extUserId:
+          type: string
+          example: '56'
+          description: User ID on platform side
+        time:
+          type: string
+          format: date-time
+          example: '2022-01-24T12:46:40.208Z'
+          description: Exact date-time of the event
+        data:
+          type: object
+          description: 'Other platform and event specific details agreed with the agreement and platform '
+          required:
+          - taskId
+          properties:
+            taskId:
+              type: string
+              description: Reference of the task/job ID on the platform side
+              example: '634'
+            location:
+              $ref: '#/components/schemas/Location'
+              description: Location of the event if agreed on the Agreement
+      required:
+      - type
+      - extUserId
+      - time
+      - data
+    Location:
+      title: Location
+      type: object
+      description: Location object
+      properties:
+        latitude:
+          type: number
+          format: float
+          example: 25.65
+        longitude:
+          type: number
+          format: float
+          example: 54.6653
+        address:
+          type: string
+      required:
+      - address
+  responses:
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+            - statusCode
+            - error
+            - message
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+            - message
+    TaskCreated:
+      description: TaskCreated response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+            required:
+            - status
+          examples:
+            example-1:
+              value:
+                status: OK
+  securitySchemes:
+    x-api-username:
+      name: x-api-username
+      type: apiKey
+      in: header
+      description: Username provided by Cachet IT
+    x-api-key:
+      name: x-api-key
+      type: apiKey
+      in: header
+      description: API Key provided by Cachet IT
+securityDefinitions:
+  APIKeyHeader:
+    type: apiKey
+    name: x-api-key
+    in: header
+  APIUsernameHeader:
+    type: apiKey
+    name: x-api-username
+    in: header

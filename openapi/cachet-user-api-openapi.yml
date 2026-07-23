@@ -1,0 +1,175 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Cachet Parking Connect User API
+  termsOfService: https://cachet.me/en/terms-conditions/terms-of-use/
+  contact:
+    name: Cachet OÜ
+    url: https://cachet.me
+    email: devs@cachet.me
+  license:
+    name: Copyright (C) Cachet OÜ - All Rights Reserved
+    url: https://cachet.me/en/terms-conditions/terms-of-use/
+  x-logo:
+    url: web/logo.png
+  description: "# Introduction\n\nCachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets. Cachet offers a full parking solution  where you just send us the coordinates of the events and Cachet will handle everything else. \n\n# Getting started\n\n1. Contact Cachet to get access to the API at kalle@cachet.me\n2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take actions and manage your parking.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n"
+servers:
+- url: https://platform-api.cachet.me
+  description: Production
+- description: Development
+  url: https://dev-platorm-api.cachet.me
+security:
+- x-api-username: []
+  x-api-key: []
+tags:
+- name: User
+  description: User actions to send user-related data from platform to Cachet
+paths:
+  /create-user:
+    post:
+      tags:
+      - User
+      summary: /create-user
+      operationId: post-create-user
+      description: Based on the data sent to the endpoint Cachet will create an account on the platform to allow tying all the next events with certain person
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserInput'
+        description: Details of the user
+      responses:
+        '200':
+          $ref: '#/components/responses/UserCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    CreateUserInput:
+      title: CreateUserInput
+      type: object
+      description: Payload for the create-user endpoint
+      examples:
+      - firstName: John
+        lastName: Doe
+        personCode: '39010232616'
+        extUserId: '12'
+        email: john@doe.com
+        countryCode: ee
+        data: {}
+      - firstName: John
+        lastName: Doe
+        personCode: '39010232616'
+        extUserId: '12'
+        email: john@doe.com
+        countryCode: ee
+        data:
+          phoneNumber: +372 56575353
+      properties:
+        firstName:
+          type: string
+          description: Platform worker's first name
+          example: John
+        lastName:
+          type: string
+          description: Platform worker's last name
+          example: Doe
+        personCode:
+          type: string
+          description: Platform worker's personal code
+          example: '39010232616'
+        extUserId:
+          type: string
+          description: Platform worker's User ID On the platform
+          example: '12'
+        email:
+          type: string
+          format: email
+          description: Platform worker's e-mail address
+          example: john@doe.com
+        countryCode:
+          type: string
+          description: Platform worker's country code (ISO 3166 Alpha-2 code)
+          example: ee
+        data:
+          type: object
+          description: Optional data object for Platform and agreement specific extra data
+      required:
+      - firstName
+      - lastName
+      - extUserId
+      - email
+      - countryCode
+  responses:
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+            - statusCode
+            - error
+            - message
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+            - message
+    UserCreated:
+      description: Account successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Status of the user creation
+                example: OK
+              message:
+                type: object
+                properties:
+                  accountCreated:
+                    type: boolean
+            required:
+            - status
+  securitySchemes:
+    x-api-username:
+      name: x-api-username
+      type: apiKey
+      in: header
+      description: Username provided by Cachet IT
+    x-api-key:
+      name: x-api-key
+      type: apiKey
+      in: header
+      description: API Key provided by Cachet IT
+securityDefinitions:
+  APIKeyHeader:
+    type: apiKey
+    name: x-api-key
+    in: header
+  APIUsernameHeader:
+    type: apiKey
+    name: x-api-username
+    in: header
