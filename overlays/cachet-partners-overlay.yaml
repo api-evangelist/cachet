@@ -1,0 +1,13 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Cachet Partners API
+  version: 1.0.0
+extends: openapi/cachet-partners-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 3
+      x-apievangelist-notes: >-
+        Single-operation embedded-onboarding API: POST /connect returns a
+        prefilled Cachet redirect link. Auth via x-api-key + x-api-username.
+      x-api-evangelist-industry: [InsurTech, Embedded-insurance]

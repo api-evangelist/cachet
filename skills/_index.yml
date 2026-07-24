@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml
+skills:
+  - file: cachet-onboard-gig-worker.md
+    name: Onboard a gig worker and record a task event
+    api: openapi/cachet-verify-openapi.yml
+    operations: [post-create-user, post-create-gig-event]
+  - file: cachet-report-parking-event.md
+    name: Report a car-sharing vehicle event for parking
+    api: openapi/cachet-parking-openapi.yml
+    operations: [post-vehicle-events]
+  - file: cachet-partner-connect.md
+    name: Generate a prefilled Cachet onboarding link
+    api: openapi/cachet-partners-openapi.yml
+    operations: [post-connect]

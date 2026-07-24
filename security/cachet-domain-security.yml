@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: cachet.me
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 11 23:58:32 2026 GMT
+  hsts: false
+- host: platform-api.cachet.me
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Mar 18 23:59:59 2027 GMT
+  hsts: null
+- host: dev-platorm-api.cachet.me
+  https: false
+domains:
+- domain: cachet.me
+  dnssec: false
+  caa:
+  - 0 iodef "mailto:devs@cachet.me"
+  - 0 issue "amazon.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "pki.goog"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

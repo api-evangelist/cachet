@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml
+versioning:
+  scheme: semver-info-version
+  current: 1.0.0
+  in_path: false
+  note: >-
+    All three specs declare info.version 1.0.0. Base URLs carry no version
+    segment. No documented version-negotiation header.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+  note: No public SLA/uptime commitment found.
+status_page: null
+status_page_note: status.cachet.me did not resolve (no public status page found 2026-07-18).
+environments:
+  - name: production
+    hosts:
+      - https://platform-api.cachet.me
+      - https://partners.cachet.me
+  - name: development
+    hosts:
+      - https://dev-platorm-api.cachet.me
+      - https://dev-partners.cachet.me
+deprecated_operations: []

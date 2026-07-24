@@ -1,0 +1,193 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Cachet Parking API
+  termsOfService: https://cachet.me/en/terms-conditions/terms-of-use/
+  contact:
+    name: Cachet OÜ
+    url: https://cachet.me
+    email: devs@cachet.me
+  license:
+    name: Copyright (C) Cachet OÜ - All Rights Reserved
+    url: https://cachet.me/en/terms-conditions/terms-of-use/
+  x-logo:
+    url: web/logo.png
+  description: >
+    # Introduction
+
+
+    Cachet Parking API is meant for car-sharing companies who would like to make it easier
+    to manage all the parking related topics for their fleets. Cachet offers a full parking solution 
+    where you just send us the coordinates of the events and Cachet will handle everything else. 
+
+
+    # Getting started
+
+
+    1. Contact Cachet to get access to the API at kalle@cachet.me
+
+    2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take
+    actions and manage your parking.
+
+
+    # Authentication
+
+
+    Authentication is done via Security headers.
+
+    Each request sent to the Cachet Platform API need to have headers
+    `x-api-key`and `x-api-username` which are both provided by the Cachet IT
+    Team.
+tags:
+  - name: Vehicle events
+    description: Used to notify Cachet about vehicle events
+servers:
+  - url: https://platform-api.cachet.me
+    description: Production
+  - description: Development
+    url: https://dev-platorm-api.cachet.me
+paths:
+  /vehicle-events:
+    post:
+      tags:
+        - Vehicle events
+      summary: /vehicle-events
+      operationId: post-vehicle-events
+      description: >-
+        Based on the data sent to the endpoint Cachet will handle the event and do whatever needs to be done to manage the parking related topics for this event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleEvent'
+        description: Details of the event
+      responses:
+        '200':
+          $ref: '#/components/responses/VehicleEventResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+  
+components:
+  securitySchemes:
+    x-api-username:
+      name: x-api-username
+      type: apiKey
+      in: header
+      description: Username provided by Cachet IT
+    x-api-key:
+      name: x-api-key
+      type: apiKey
+      in: header
+      description: API Key provided by Cachet IT
+  schemas:
+    VehicleEvent:
+      title: VehicleEvent
+      type: object
+      required:
+        - 'status'
+        - 'time'
+        - 'licenseNr'
+        - 'data'
+      description: Payload for the vehicle-events
+      
+      properties:
+        type:
+          type: 'string'
+          description: 'event type'
+          enum:
+            - 'TRIP_START'
+            - 'TRIP_END'
+            - 'VEHICLE_ADDED'
+          example: 'TRIP_END'
+        licenseNr:
+          type: 'licenseNr'
+          description: 'vehicle registration number'
+          example: '123ABC'
+        time:
+          type: 'string'
+          description: 'event occuring time'
+          example: '2021-03-02T11:10:05+02:00'
+        data:
+          $ref: '#/components/schemas/VehicleEventData'
+    VehicleEventData:
+      type: 'object'
+      required:
+        - 'latitude'
+        - 'longitude'
+      properties:
+        latitude:
+          type: 'number'
+          format: 'float'
+          description: 'latitude of event location'
+          example: 59.43671845969525
+        longitude:
+          type: 'number'
+          format: 'float'
+          description: 'longitude of event location'
+          example: 24.739982267816057
+        isElectricVehicle:
+          type: 'boolean'
+          description: 'set to true in case electrical vehicle to exclude free zones for EVs'
+          example: true  
+    
+  responses:
+    VehicleEventResponse:
+      description: Vehicle event response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+            required:
+              - success
+      
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+              - message
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+              - statusCode
+              - error
+              - message
+securityDefinitions:
+  APIKeyHeader:
+    type: "apiKey"
+    name: "x-api-key"
+    in: "header"
+  APIUsernameHeader:
+    type: "apiKey"
+    name: "x-api-username"
+    in: "header"
+
+security:
+  - x-api-username: []
+    x-api-key: []

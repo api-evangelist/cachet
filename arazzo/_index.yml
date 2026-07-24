@@ -1,0 +1,8 @@
+generated: '2026-07-18'
+method: derived
+source: arazzo/cachet-gig-onboarding.yml
+workflows:
+  - file: cachet-gig-onboarding.yml
+    workflowId: onboardWorkerAndReportTask
+    title: Cachet gig-worker onboarding and task reporting
+    summary: Create a gig-worker on Cachet Verify then report a completed task event tied to the same extUserId.

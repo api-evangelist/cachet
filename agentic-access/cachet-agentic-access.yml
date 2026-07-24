@@ -1,0 +1,78 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-partners-openapi.yml, openapi/cachet-verify-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 4
+  by_action_class:
+    acting: 4
+  by_consequence:
+    write: 4
+  human_in_the_loop_required: 0
+operations:
+- path: /vehicle-events
+  method: post
+  operationId: post-vehicle-events
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /connect
+  method: post
+  operationId: post-connect
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /create-user
+  method: post
+  operationId: post-create-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /create-gig-event
+  method: post
+  operationId: post-create-gig-event
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

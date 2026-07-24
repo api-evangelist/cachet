@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Cachet Parking API
+  version: 1.0.0
+extends: openapi/cachet-parking-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 3
+      x-apievangelist-notes: >-
+        Single-operation inbound event API for car-sharing parking management.
+        Auth via x-api-key + x-api-username. No RFC 9457 errors, no idempotency,
+        no rate-limit signaling documented.
+  - target: $.info
+    update:
+      x-api-evangelist-industry: [InsurTech, Mobility, Car-sharing]

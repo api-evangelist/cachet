@@ -1,0 +1,54 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml
+note: >-
+  Entity graph derived from the request/response schemas of the three Cachet
+  OpenAPI specs. Cachet is an event-ingestion platform: platforms push users,
+  vehicle events, gig-task events, and connect requests into Cachet.
+entities:
+  - name: VehicleEvent
+    spec: openapi/cachet-parking-openapi.yml
+    key_fields: [type, licenseNr, time]
+    fields: [type, licenseNr, time, data]
+    relationships:
+      - has_one: VehicleEventData
+        via: data
+  - name: VehicleEventData
+    spec: openapi/cachet-parking-openapi.yml
+    fields: [latitude, longitude, isElectricVehicle]
+  - name: User
+    spec: openapi/cachet-verify-openapi.yml
+    schema: CreateUserInput
+    key_fields: [extUserId, email]
+    fields: [firstName, lastName, personCode, extUserId, email, countryCode, data]
+    note: A gig-worker registered from the platform; keyed by extUserId (platform-side id).
+  - name: GigEvent
+    spec: openapi/cachet-verify-openapi.yml
+    schema: CreateGigEventInput
+    key_fields: [type, extUserId, time]
+    fields: [type, extUserId, time, data]
+    relationships:
+      - belongs_to: User
+        via: extUserId
+      - has_one: Location
+        via: data.location
+  - name: Location
+    spec: openapi/cachet-verify-openapi.yml
+    fields: [latitude, longitude, address]
+  - name: ConnectRequest
+    spec: openapi/cachet-partners-openapi.yml
+    schema: ConnectInput
+    fields: [person, vehicle, bolt]
+    relationships:
+      - has_one: Person
+        via: person
+      - has_one: Vehicle
+        via: vehicle
+    note: Returns a redirectUrl carrying a connectId/connectSecret for prefilled onboarding.
+  - name: Person
+    spec: openapi/cachet-partners-openapi.yml
+    fields: [firstName, lastName, email, personCode]
+  - name: Vehicle
+    spec: openapi/cachet-partners-openapi.yml
+    key_fields: [licenseNr]
+    fields: [licenseNr, make, model, year, vinNumber]

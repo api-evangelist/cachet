@@ -1,0 +1,26 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: All three specifications declare openapi 3.1.0.
+  - id: oauth2
+    conforms: false
+    evidence: Security is apiKey (x-api-key + x-api-username) only; no oauth2 schemes.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a custom {statusCode,error,message} envelope, not application/problem+json.
+  - id: json-api
+    conforms: false
+  - id: idempotency
+    conforms: false
+    evidence: No Idempotency-Key header/param documented.
+  - id: pagination
+    conforms: false
+    evidence: No list/collection operations; single-resource POST endpoints only.
+  - id: webhooks
+    conforms: false
+    evidence: Cachet receives inbound event POSTs from platforms; no outbound webhook/event delivery documented.

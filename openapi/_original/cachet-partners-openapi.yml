@@ -1,0 +1,205 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Cachet Partners API
+  termsOfService: https://cachet.me/en/terms-conditions/terms-of-use/
+  contact:
+    name: Cachet OÜ
+    url: https://cachet.me
+    email: devs@cachet.me
+  license:
+    name: Copyright (C) Cachet OÜ - All Rights Reserved
+    url: https://cachet.me/en/terms-conditions/terms-of-use/
+  x-logo:
+    url: web/logo.png
+  description: >
+    # Introduction
+
+
+    Cachet partners API can be used to embed Cachet link into the partner application. 
+    API call is made on the click of a button and customer data is sent to Cachet server. 
+    Cachet will return a redirection link which will already prefill data for the customer 
+    to make the onboarding process much smoother. 
+
+
+    # Getting started
+
+
+    1. Contact Cachet at sales@cachet.me to get access to the API
+
+    2. Use /connect endpoint to send the agreed user data to Cachet and receive a redirection link.
+
+    3. Redirect the customer to this link and let Cachet handle everything for the customer onboarding.
+
+
+    # Authentication
+
+
+    Authentication is done via Security headers.
+
+    Each request sent to the Cachet Platform API need to have headers
+    `x-api-key`and `x-api-username` which are both provided by the Cachet IT
+    Team.
+tags:
+  - name: Connect
+    description: Endpoint where to send the connect request
+  
+servers:
+  - url: https://partners.cachet.me
+    description: Production
+  - description: Development
+    url: https://dev-partners.cachet.me
+paths:
+  /connect:
+    post:
+      tags:
+        - Connect
+      summary: /connect
+      operationId: post-connect
+      description: >-
+        Based on the data sent Cachet will generate a redirect link to which you can then send the customer.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectInput'
+        description: Details of customer and his assets
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+components:
+  securitySchemes:
+    x-api-username:
+      name: x-api-username
+      type: apiKey
+      in: header
+      description: Username provided by Cachet IT
+    x-api-key:
+      name: x-api-key
+      type: apiKey
+      in: header
+      description: API Key provided by Cachet IT
+  schemas:
+    ConnectInput:
+      title: ConnectInput
+      type: object
+      description: Payload for the create-user endpoint
+      properties:
+        person:
+          type: object
+          description: Personal details of the customer
+          properties:
+            firstName:
+              type: string
+              description: Customer's first name
+              example: John
+            lastName:
+              type: string
+              description: Customer's last name
+              example: Doe
+            email:
+              type: string
+              format: email
+              description: Customer's e-mail address
+              example: john@doe.com
+            personCode:
+              type: string
+              description: Customer's personal code
+              example: '39010232616'
+          required:
+            - firstName
+            - lastName
+            - email
+        vehicle:
+          type: object
+          description: Payload for sending vehicle details
+          properties:
+            licenseNr:
+              type: string
+              description: Vehicle registration number
+              example: "123ABC"
+            make:
+              type: string
+              description: Vehicle make
+              example: "Volvo"
+            model:
+              type: string
+              description: Vehicle model
+              example: "V60"
+            year:
+              type: string
+              description: Vehicle production year
+              example: "2019"
+            vinNumber:
+              type: string
+              description: Vehicle VIN number
+              example: "YV1LS5587W2552511"
+          required:
+            - licenseNr
+        bolt: 
+          type: object
+          description: Bolt platform specific parameters
+          properties:
+            insuranceKey:
+              type: string
+              description: Driver insurance key on Bolt platform
+              example: c76aadc8-b004-4dfb-90ef-87758261199e
+          required:
+            - insuranceKey
+      required:
+        - person
+    
+  responses:
+    ConnectCreated:
+      description: Connect request succeeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              redirectUrl:
+                type: string
+                description: Redirect URL where to send the customer
+                example: https://dev-app.cachet.me/register?connectId=4add0fa8-d458-4582-8cd2-a7de27e8990b&connectSecret=b9e7845e5683c602c2c4bafb0553d88307509171adea1b8f751d4c84ebb531d0d09b84bbeb57c20ae1f1b7480746dcef0138ca0234eb15b62ec78ff283e5c06d&type=BOLT_DEMO&filter=rh-vehicle
+            required:
+              - redirectUrl
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+              - message
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+              - statusCode
+              - error
+              - message
+   
+security:
+  - x-api-username: []
+    x-api-key: []

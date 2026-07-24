@@ -1,25 +1,145 @@
 aid: cachet
 name: Cachet
-description: Cachet is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Cachet OÜ is an Estonian InsurTech that provides adaptive, usage-based insurance
+  for digital platforms and their users across new mobility, gig work, and
+  car-sharing. Digital platforms integrate Cachet through three inbound event
+  APIs: the Parking API (car-sharing fleets stream vehicle events so Cachet
+  manages parking), the Verify / Platform API (gig-work platforms register workers
+  and push task events to drive worker protection), and the Partners API (embed a
+  prefilled Cachet onboarding link into a partner app). All three are OpenAPI 3.1
+  and authenticated with issued x-api-key and x-api-username headers. Cachet is
+  backed by Techstars; notable platform clients include Bolt, Bird, Ryde, and
+  TaskRabbit.
 url: https://raw.githubusercontent.com/api-evangelist/cachet/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - techstars
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-openapi
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://cachet.me/assets/img/social_share.jpg
 tags:
 - Company
-apis: []
+- Insurance
+- InsurTech
+- Mobility
+- Gig Economy
+- Car Sharing
+- Embedded Insurance
+- Events
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: cachet:cachet-connect-api
+  name: Cachet Connect API
+  description: Endpoint where to send the connect request
+  humanURL: https://docs.cachet.me/parking
+  baseURL: https://platform-api.cachet.me
+  tags:
+  - Connect
+  properties:
+  - type: OpenAPI
+    url: openapi/cachet-connect-api-openapi.yml
+- aid: cachet:cachet-gig-events-api
+  name: Cachet Gig-Events API
+  description: >-
+    Event actions which are sent by the platform to Cachet involving gig-workers tasks done on the platform
+  humanURL: https://docs.cachet.me/parking
+  baseURL: https://platform-api.cachet.me
+  tags:
+  - Gig-Events
+  properties:
+  - type: OpenAPI
+    url: openapi/cachet-gig-events-api-openapi.yml
+- aid: cachet:cachet-user-api
+  name: Cachet User API
+  description: User actions to send user-related data from platform to Cachet
+  humanURL: https://docs.cachet.me/parking
+  baseURL: https://platform-api.cachet.me
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/cachet-user-api-openapi.yml
+- aid: cachet:cachet-vehicle-events-api
+  name: Cachet Vehicle events API
+  description: Used to notify Cachet about vehicle events
+  humanURL: https://docs.cachet.me/parking
+  baseURL: https://platform-api.cachet.me
+  tags:
+  - Vehicle events
+  properties:
+  - type: OpenAPI
+    url: openapi/cachet-vehicle-events-api-openapi.yml
 common:
 - type: Website
   url: https://cachet.me/
+- type: DeveloperPortal
+  url: https://docs.cachet.me/
+- type: Documentation
+  url: https://docs.cachet.me/
+- type: APIReference
+  url: https://docs.cachet.me/
+- type: Support
+  url: https://help.cachet.me/en/
+- type: Blog
+  url: https://cachet.me/en/blog
+- type: Pricing
+  url: https://cachet.me/en/pricing
+- type: SignUp
+  url: https://app.cachet.me/
+- type: TermsOfService
+  url: https://cachet.me/en/terms-conditions
+- type: PrivacyPolicy
+  url: https://cachet.me/en/privacy-policy
+- type: Authentication
+  url: authentication/cachet-authentication.yml
+- type: MCPServer
+  url: mcp/cachet-mcp.yml
+- type: LLMsTxt
+  url: llms/cachet-llms.txt
+- type: Conventions
+  url: conventions/cachet-conventions.yml
+- type: Conformance
+  url: conformance/cachet-conformance.yml
+- type: ErrorCatalog
+  url: errors/cachet-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/cachet-lifecycle.yml
+- type: Sandbox
+  url: sandbox/cachet-sandbox.yml
+- type: DataModel
+  url: data-model/cachet-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Cachet gig-worker onboarding and task reporting
+  url: arazzo/cachet-gig-onboarding.yml
+- type: DomainSecurity
+  url: security/cachet-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/cachet-agentic-access.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

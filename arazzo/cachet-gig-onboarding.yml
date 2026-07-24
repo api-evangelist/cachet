@@ -1,0 +1,61 @@
+arazzo: 1.0.1
+info:
+  title: Cachet gig-worker onboarding and task reporting
+  version: 1.0.0
+  description: >-
+    Register a gig-worker on the Cachet Platform (Verify) API, then report a
+    completed task event for that worker. Requires x-api-key and x-api-username
+    headers issued by the Cachet IT team.
+sourceDescriptions:
+  - name: cachetVerify
+    url: ../openapi/cachet-verify-openapi.yml
+    type: openapi
+workflows:
+  - workflowId: onboardWorkerAndReportTask
+    summary: Create a gig-worker then send a completed task event.
+    description: >-
+      Two-step Verify flow. Step 1 registers the worker (keyed by extUserId);
+      step 2 reports a COMPLETED_TASK event tied to the same extUserId.
+    inputs:
+      type: object
+      properties:
+        firstName: { type: string }
+        lastName: { type: string }
+        extUserId: { type: string }
+        email: { type: string }
+        countryCode: { type: string }
+        taskId: { type: string }
+        time: { type: string }
+      required: [firstName, lastName, extUserId, email, countryCode, taskId, time]
+    steps:
+      - stepId: createUser
+        operationId: post-create-user
+        requestBody:
+          contentType: application/json
+          payload:
+            firstName: $inputs.firstName
+            lastName: $inputs.lastName
+            extUserId: $inputs.extUserId
+            email: $inputs.email
+            countryCode: $inputs.countryCode
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          status: $response.body#/status
+      - stepId: reportTask
+        operationId: post-create-gig-event
+        requestBody:
+          contentType: application/json
+          payload:
+            type: COMPLETED_TASK
+            extUserId: $inputs.extUserId
+            time: $inputs.time
+            data:
+              taskId: $inputs.taskId
+        successCriteria:
+          - condition: $statusCode == 200
+        outputs:
+          taskStatus: $response.body#/status
+    outputs:
+      userStatus: $steps.createUser.outputs.status
+      taskStatus: $steps.reportTask.outputs.taskStatus

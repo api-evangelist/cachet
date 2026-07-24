@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml, https://docs.cachet.me/
+note: >-
+  Cachet publishes distinct Development ("dev") API hosts alongside Production in
+  every spec, giving a test-vs-live separation. No self-service sandbox keys are
+  published — credentials (x-api-key + x-api-username) are issued per integration
+  by the Cachet IT team, and the same credential pair is used against the dev host.
+  No test cards / magic identifiers are published (this is an inbound event API,
+  not a card acquirer).
+environments:
+  - mode: development
+    parking_platform_host: https://dev-platorm-api.cachet.me
+    partners_host: https://dev-partners.cachet.me
+  - mode: production
+    parking_platform_host: https://platform-api.cachet.me
+    partners_host: https://partners.cachet.me
+observed_test_values:
+  - context: partners /connect development redirect example
+    value: 'type=BOLT_DEMO'
+    note: >-
+      The Partners API documents a development redirect link containing a
+      BOLT_DEMO connect type — a published demo/onboarding example, not a reusable
+      credential.
+credentials:
+  self_service: false
+  issued_by: Cachet IT team (contact devs@cachet.me / kalle@cachet.me / sales@cachet.me)

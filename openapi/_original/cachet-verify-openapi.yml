@@ -1,0 +1,313 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Cachet Platform API
+  termsOfService: https://cachet.me/en/terms-conditions/terms-of-use/
+  contact:
+    name: Cachet OÜ
+    url: https://cachet.me
+    email: devs@cachet.me
+  license:
+    name: Copyright (C) Cachet OÜ - All Rights Reserved
+    url: https://cachet.me/en/terms-conditions/terms-of-use/
+  x-logo:
+    url: web/logo.png
+  description: >
+    # Introduction
+
+
+    Cachet Verify API can be used as a single method to exchange task based data
+    between gig-worker platforms & Cachet. This API documentation provides
+    information about which event triggers which API and when should the events
+    be set up at the platform’s end. Please follow the steps below:
+
+
+    # Getting started
+
+
+    1. Make sure that the data for already registered gig-worker on your
+    platform has been sent to Cachet before you start using Cachet Verify API
+
+    2. Use /create-user API every time you register a new gig-worker in your
+    platform
+
+    3. Use /create-gig-event API every time a job is created at your platform.
+    It’s crucial to note here that this API is driven by two events a) starting
+    of the job and b) finishing of the job. Please ensure that the data is
+    exchanged on both of these events
+
+
+    # Authentication
+
+
+    Authentication is done via Security headers.
+
+    Each request sent to the Cachet Platform API need to have headers
+    `x-api-key`and `x-api-username` which are both provided by the Cachet IT
+    Team.
+tags:
+  - name: User
+    description: User actions to send user-related data from platform to Cachet
+  - name: Gig-Events
+    description: >-
+      Event actions which are sent by the platform to Cachet involving
+      gig-workers tasks done on the platform
+servers:
+  - url: https://platform-api.cachet.me
+    description: Production
+  - description: Development
+    url: https://dev-platorm-api.cachet.me
+paths:
+  /create-user:
+    post:
+      tags:
+        - User
+      summary: /create-user
+      operationId: post-create-user
+      description: >-
+        Based on the data sent to the endpoint Cachet will create an account on
+        the platform to allow tying all the next events with certain person
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserInput'
+        description: Details of the user
+      responses:
+        '200':
+          $ref: '#/components/responses/UserCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+  /create-gig-event:
+    post:
+      tags:
+        - Gig-Events
+      summary: /create-gig-event
+      operationId: post-create-gig-event
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ValidationError'
+      description: Endpoint for sending gig-worker tasks related events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGigEventInput'
+components:
+  securitySchemes:
+    x-api-username:
+      name: x-api-username
+      type: apiKey
+      in: header
+      description: Username provided by Cachet IT
+    x-api-key:
+      name: x-api-key
+      type: apiKey
+      in: header
+      description: API Key provided by Cachet IT
+  schemas:
+    CreateUserInput:
+      title: CreateUserInput
+      type: object
+      description: Payload for the create-user endpoint
+      examples:
+        - firstName: John
+          lastName: Doe
+          personCode: '39010232616'
+          extUserId: '12'
+          email: john@doe.com
+          countryCode: ee
+          data: {}
+        - firstName: John
+          lastName: Doe
+          personCode: '39010232616'
+          extUserId: '12'
+          email: john@doe.com
+          countryCode: ee
+          data:
+            phoneNumber: +372 56575353
+      properties:
+        firstName:
+          type: string
+          description: Platform worker's first name
+          example: John
+        lastName:
+          type: string
+          description: Platform worker's last name
+          example: Doe
+        personCode:
+          type: string
+          description: Platform worker's personal code
+          example: '39010232616'
+        extUserId:
+          type: string
+          description: Platform worker's User ID On the platform
+          example: '12'
+        email:
+          type: string
+          format: email
+          description: Platform worker's e-mail address
+          example: john@doe.com
+        countryCode:
+          type: string
+          description: Platform worker's country code (ISO 3166 Alpha-2 code)
+          example: ee
+        data:
+          type: object
+          description: Optional data object for Platform and agreement specific extra data
+      required:
+        - firstName
+        - lastName
+        - extUserId
+        - email
+        - countryCode
+    Location:
+      title: Location
+      type: object
+      description: Location object
+      properties:
+        latitude:
+          type: number
+          format: float
+          example: 25.65
+        longitude:
+          type: number
+          format: float
+          example: 54.6653
+        address:
+          type: string
+      required:
+        - address
+    CreateGigEventInput:
+      title: CreateTaskInput
+      type: object
+      description: Input of the /create-gig-event endpoint
+      examples:
+        - type: TASK_STARTED
+          extUserId: '56'
+          time: '2022-01-24T12:46:40.208Z'
+          data:
+            reference: '634'
+        - type: TASK_ENDED
+          extUserId: '56'
+          time: '2022-01-24T13:46:40.208Z'
+          data:
+            reference: '634'
+      properties:
+        type:
+          type: string
+          enum:
+            - TASK_START
+            - TASK_END
+            - COMPLETED_TASK
+          description: |
+            Event type:
+              * `TASK_START` - In case real-time events are send, this indicates START of the task 
+              * `TASK_END` - In case real-time events are send, this indicates END of the task 
+              * `COMPLETED_TASK` - In case START and END are already known and Task is completed
+          example: TASK_STARTED
+        extUserId:
+          type: string
+          example: '56'
+          description: User ID on platform side
+        time:
+          type: string
+          format: date-time
+          example: '2022-01-24T12:46:40.208Z'
+          description: Exact date-time of the event
+        data:
+          type: object
+          description: >-
+            Other platform and event specific details agreed with the agreement
+            and platform 
+          required:
+            - taskId
+          properties:
+            taskId:
+              type: string
+              description: Reference of the task/job ID on the platform side
+              example: '634'
+            location:
+              $ref: '#/components/schemas/Location'
+              description: Location of the event if agreed on the Agreement
+      required:
+        - type
+        - extUserId
+        - time
+        - data
+  responses:
+    UserCreated:
+      description: Account successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Status of the user creation
+                example: OK
+              message:
+                type: object
+                properties:
+                  accountCreated:
+                    type: boolean
+            required:
+              - status
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+              - message
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+              - statusCode
+              - error
+              - message
+    TaskCreated:
+      description: TaskCreated response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+            required:
+              - status
+          examples:
+            example-1:
+              value:
+                status: OK
+security:
+  - x-api-username: []
+    x-api-key: []

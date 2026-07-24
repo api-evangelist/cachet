@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml
+format: custom-json
+note: >-
+  Cachet does not use RFC 9457 application/problem+json. Errors are returned as a
+  custom JSON envelope. Two error shapes are documented across all three APIs.
+envelopes:
+  - name: Unauthorized
+    fields: [message]
+    example: '{ "message": "Unauthorized" }'
+  - name: ValidationError
+    fields: [statusCode, error, message]
+    example: '{ "statusCode": 500, "error": "ValidationError", "message": "\"lastName\" is required" }'
+problems:
+  - status: 401
+    title: Unauthorized
+    envelope: Unauthorized
+    remediation: Supply valid x-api-key and x-api-username headers issued by the Cachet IT team.
+    source_operations:
+      - openapi/cachet-parking-openapi.yml#post-vehicle-events
+      - openapi/cachet-verify-openapi.yml#post-create-user
+      - openapi/cachet-verify-openapi.yml#post-create-gig-event
+      - openapi/cachet-partners-openapi.yml#post-connect
+  - status: 500
+    title: ValidationError
+    envelope: ValidationError
+    remediation: Correct the request body to satisfy the required fields for the target schema.
+    source_operations:
+      - openapi/cachet-parking-openapi.yml#post-vehicle-events
+      - openapi/cachet-verify-openapi.yml#post-create-user
+      - openapi/cachet-verify-openapi.yml#post-create-gig-event
+      - openapi/cachet-partners-openapi.yml#post-connect

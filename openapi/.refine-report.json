@@ -1,0 +1,20 @@
+{
+  "provider": "cachet",
+  "sources": [
+    "cachet-connect-api-openapi.yml",
+    "cachet-gig-events-api-openapi.yml",
+    "cachet-user-api-openapi.yml",
+    "cachet-vehicle-events-api-openapi.yml"
+  ],
+  "outputs": [
+    "cachet-connect-api-openapi.yml",
+    "cachet-gig-events-api-openapi.yml",
+    "cachet-user-api-openapi.yml",
+    "cachet-vehicle-events-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

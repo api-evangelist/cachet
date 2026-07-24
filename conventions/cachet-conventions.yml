@@ -1,0 +1,49 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml
+docs: https://docs.cachet.me/
+authentication:
+  style: api-key
+  detail: >-
+    Every request must carry two apiKey headers issued by the Cachet IT team:
+    `x-api-key` and `x-api-username`. Both are required together. There is no
+    OAuth, no scopes, and no self-service key issuance — access is granted after
+    manual onboarding (contact kalle@cachet.me / sales@cachet.me / devs@cachet.me).
+  headers:
+    - x-api-key
+    - x-api-username
+  cross_reference: authentication/cachet-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No idempotency key header or param is documented in the specs or docs. All
+    endpoints are event-ingestion POSTs; retries are not covered by a published
+    idempotency contract.
+pagination:
+  supported: false
+  note: All three APIs are single-resource event/command POST endpoints; no list operations, so no pagination surface.
+versioning:
+  scheme: none-in-path
+  note: >-
+    Specs declare info.version 1.0.0 but the base URLs carry no version segment
+    (https://platform-api.cachet.me, https://partners.cachet.me). No documented
+    version-header or deprecation policy.
+content_type: application/json
+error_envelope:
+  style: custom-json
+  note: >-
+    Not RFC 9457 problem+json. Validation errors return an envelope of
+    {statusCode, error, message}; auth failures return {message}. See
+    errors/cachet-problem-types.yml.
+  fields:
+    - statusCode
+    - error
+    - message
+  cross_reference: errors/cachet-problem-types.yml
+rate_limiting:
+  signaled: false
+  note: No rate-limit headers or policy documented.
+metadata:
+  note: >-
+    Several endpoints accept a free-form `data` object for platform/agreement-specific
+    extra fields (create-user, create-gig-event).
