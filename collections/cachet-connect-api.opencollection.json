@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cachet Parking Connect API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-username",
+      "value": "{{x-api-username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connect",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/connect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://platform-api.cachet.me/connect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Based on the data sent Cachet will generate a redirect link to which you can then send the customer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

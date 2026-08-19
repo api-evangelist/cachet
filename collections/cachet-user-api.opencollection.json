@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cachet Parking Connect User API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-username",
+      "value": "{{x-api-username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/create-user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://platform-api.cachet.me/create-user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Based on the data sent to the endpoint Cachet will create an account on the platform to allow tying all the next events with certain person"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

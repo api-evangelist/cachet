@@ -1,0 +1,250 @@
+{
+  "item": [
+    {
+      "id": "f4d4dcff-b561-49b1-a021-6b9071672af0",
+      "name": "Connect",
+      "description": {
+        "content": "Endpoint where to send the connect request",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b58678a8-d568-409a-82f8-572fc3c2f22d",
+          "name": "/connect",
+          "request": {
+            "name": "/connect",
+            "description": {
+              "content": "Based on the data sent Cachet will generate a redirect link to which you can then send the customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"person\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"personCode\": \"<string>\"\n  },\n  \"vehicle\": {\n    \"licenseNr\": \"<string>\",\n    \"make\": \"<string>\",\n    \"model\": \"<string>\",\n    \"year\": \"<string>\",\n    \"vinNumber\": \"<string>\"\n  },\n  \"bolt\": {\n    \"insuranceKey\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "12480a10-ae85-4683-8559-bd09cab33bfb",
+              "name": "Connect request succeeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john@doe.com\",\n    \"personCode\": \"39010232616\"\n  },\n  \"vehicle\": {\n    \"licenseNr\": \"123ABC\",\n    \"make\": \"Volvo\",\n    \"model\": \"V60\",\n    \"year\": \"2019\",\n    \"vinNumber\": \"YV1LS5587W2552511\"\n  },\n  \"bolt\": {\n    \"insuranceKey\": \"c76aadc8-b004-4dfb-90ef-87758261199e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"redirectUrl\": \"https://dev-app.cachet.me/register?connectId=4add0fa8-d458-4582-8cd2-a7de27e8990b&connectSecret=b9e7845e5683c602c2c4bafb0553d88307509171adea1b8f751d4c84ebb531d0d09b84bbeb57c20ae1f1b7480746dcef0138ca0234eb15b62ec78ff283e5c06d&type=BOLT_DEMO&filter=rh-vehicle\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f4aabe1-e85d-4d4d-9c1d-18660d51d5e2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john@doe.com\",\n    \"personCode\": \"39010232616\"\n  },\n  \"vehicle\": {\n    \"licenseNr\": \"123ABC\",\n    \"make\": \"Volvo\",\n    \"model\": \"V60\",\n    \"year\": \"2019\",\n    \"vinNumber\": \"YV1LS5587W2552511\"\n  },\n  \"bolt\": {\n    \"insuranceKey\": \"c76aadc8-b004-4dfb-90ef-87758261199e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa5032b1-b064-4945-b32e-7eb495163c29",
+              "name": "ValidationError",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john@doe.com\",\n    \"personCode\": \"39010232616\"\n  },\n  \"vehicle\": {\n    \"licenseNr\": \"123ABC\",\n    \"make\": \"Volvo\",\n    \"model\": \"V60\",\n    \"year\": \"2019\",\n    \"vinNumber\": \"YV1LS5587W2552511\"\n  },\n  \"bolt\": {\n    \"insuranceKey\": \"c76aadc8-b004-4dfb-90ef-87758261199e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"error\": \"ValidationError\",\n  \"message\": \"\\\"lastName\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://platform-api.cachet.me",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-username"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "34d0572a-28bb-4ebd-a025-7e4d3e4518fd",
+    "name": "Cachet Parking Connect API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nCachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets. Cachet offers a full parking solution  where you just send us the coordinates of the events and Cachet will handle everything else. \n\n# Getting started\n\n1. Contact Cachet to get access to the API at kalle@cachet.me\n2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take actions and manage your parking.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n\n\nContact Support:\n Name: Cachet OÜ\n Email: devs@cachet.me",
+      "type": "text/plain"
+    }
+  }
+}

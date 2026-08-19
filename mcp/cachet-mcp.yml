@@ -2,25 +2,32 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/cachet-parking-openapi.yml, openapi/cachet-verify-openapi.yml, openapi/cachet-partners-openapi.yml
-note: >-
-  No official hosted/remote MCP server was found for Cachet. This is a candidate
-  tool surface derived one-to-one from the operations published in the three
-  Cachet OpenAPI specifications. Cachet gates API access behind manual onboarding
-  (x-api-key + x-api-username issued by the Cachet IT team), so any MCP server
-  would need those credentials injected.
+note: No official hosted/remote MCP server was found for Cachet. This is a candidate tool surface derived
+  one-to-one from the operations published in the three Cachet OpenAPI specifications. Cachet gates API
+  access behind manual onboarding (x-api-key + x-api-username issued by the Cachet IT team), so any MCP
+  server would need those credentials injected.
 server:
   name: cachet
   transport: http
 tools:
-  - name: post_vehicle_events
-    description: Notify Cachet about a car-sharing vehicle event (trip start/end, vehicle added) for parking management.
-    source_operation: openapi/cachet-parking-openapi.yml#post-vehicle-events
-  - name: post_create_user
-    description: Register a gig-worker on the Cachet platform so subsequent gig events can be tied to a person.
-    source_operation: openapi/cachet-verify-openapi.yml#post-create-user
-  - name: post_create_gig_event
-    description: Send a gig-worker task event (task start/end/completed) to Cachet Verify.
-    source_operation: openapi/cachet-verify-openapi.yml#post-create-gig-event
-  - name: post_connect
-    description: Send customer/vehicle data to Cachet Partners and receive a prefilled onboarding redirect link.
-    source_operation: openapi/cachet-partners-openapi.yml#post-connect
+- name: post_vehicle_events
+  description: Notify Cachet about a car-sharing vehicle event (trip start/end, vehicle added) for parking
+    management.
+  source_operation: openapi/cachet-parking-openapi.yml#post-vehicle-events
+- name: post_create_user
+  description: Register a gig-worker on the Cachet platform so subsequent gig events can be tied to a
+    person.
+  source_operation: openapi/cachet-verify-openapi.yml#post-create-user
+- name: post_create_gig_event
+  description: Send a gig-worker task event (task start/end/completed) to Cachet Verify.
+  source_operation: openapi/cachet-verify-openapi.yml#post-create-gig-event
+- name: post_connect
+  description: Send customer/vehicle data to Cachet Partners and receive a prefilled onboarding redirect
+    link.
+  source_operation: openapi/cachet-partners-openapi.yml#post-connect
+deployment:
+  mode: none
+  verified: derived
+  tools: 4
+  checked: '2026-08-12'
+  source: catalog MCP census

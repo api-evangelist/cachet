@@ -1,0 +1,250 @@
+{
+  "item": [
+    {
+      "id": "f8fdd639-67ff-49ff-82a1-fffac8e79c56",
+      "name": "Vehicle events",
+      "description": {
+        "content": "Used to notify Cachet about vehicle events",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "546b162c-82fd-47bb-89c6-d99ebc251835",
+          "name": "/vehicle-events",
+          "request": {
+            "name": "/vehicle-events",
+            "description": {
+              "content": "Based on the data sent to the endpoint Cachet will handle the event and do whatever needs to be done to manage the parking related topics for this event",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicle-events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"time\": \"<string>\",\n  \"licenseNr\": \"<licenseNr>\",\n  \"data\": {\n    \"latitude\": \"<float>\",\n    \"longitude\": \"<float>\",\n    \"isElectricVehicle\": \"<boolean>\"\n  },\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8a1ab809-b268-4cb8-9332-4cd0986dc756",
+              "name": "Vehicle event response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle-events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"time\": \"2021-03-02T11:10:05+02:00\",\n  \"licenseNr\": \"123ABC\",\n  \"data\": {\n    \"latitude\": 59.43671845969525,\n    \"longitude\": 24.739982267816057,\n    \"isElectricVehicle\": true\n  },\n  \"type\": \"TRIP_END\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffb431cd-71c7-4d8e-ba41-ab99ee5910a8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle-events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"time\": \"2021-03-02T11:10:05+02:00\",\n  \"licenseNr\": \"123ABC\",\n  \"data\": {\n    \"latitude\": 59.43671845969525,\n    \"longitude\": 24.739982267816057,\n    \"isElectricVehicle\": true\n  },\n  \"type\": \"TRIP_END\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b60d6cb-2682-407f-90dc-503f59a0a295",
+              "name": "ValidationError",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle-events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"time\": \"2021-03-02T11:10:05+02:00\",\n  \"licenseNr\": \"123ABC\",\n  \"data\": {\n    \"latitude\": 59.43671845969525,\n    \"longitude\": 24.739982267816057,\n    \"isElectricVehicle\": true\n  },\n  \"type\": \"TRIP_END\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"error\": \"ValidationError\",\n  \"message\": \"\\\"lastName\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://platform-api.cachet.me",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-username"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "48f93838-a923-4e15-8d42-f4a401c5ff79",
+    "name": "Cachet Parking Connect Vehicle events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nCachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets. Cachet offers a full parking solution  where you just send us the coordinates of the events and Cachet will handle everything else. \n\n# Getting started\n\n1. Contact Cachet to get access to the API at kalle@cachet.me\n2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take actions and manage your parking.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n\n\nContact Support:\n Name: Cachet OÜ\n Email: devs@cachet.me",
+      "type": "text/plain"
+    }
+  }
+}

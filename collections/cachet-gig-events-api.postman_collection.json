@@ -1,0 +1,250 @@
+{
+  "item": [
+    {
+      "id": "848ec761-cd4b-42cc-8d78-4eaf25cd38bf",
+      "name": "Gig-Events",
+      "description": {
+        "content": "Event actions which are sent by the platform to Cachet involving gig-workers tasks done on the platform",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "97ca9f6c-5e52-4608-b626-755fc5acc296",
+          "name": "/create-gig-event",
+          "request": {
+            "name": "/create-gig-event",
+            "description": {
+              "content": "Endpoint for sending gig-worker tasks related events",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "create-gig-event"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"extUserId\": \"<string>\",\n  \"time\": \"<dateTime>\",\n  \"data\": {\n    \"taskId\": \"<string>\",\n    \"location\": {\n      \"address\": \"<string>\",\n      \"latitude\": \"<float>\",\n      \"longitude\": \"<float>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d5ebf702-93e8-450c-9051-43c99859efc4",
+              "name": "TaskCreated response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "create-gig-event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"extUserId\": \"56\",\n  \"time\": \"2022-01-24T12:46:40.208Z\",\n  \"data\": {\n    \"taskId\": \"634\",\n    \"location\": {\n      \"address\": \"string\",\n      \"latitude\": 25.65,\n      \"longitude\": 54.6653\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "affbb38a-ac20-4085-baac-297c1045b5ce",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "create-gig-event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"extUserId\": \"56\",\n  \"time\": \"2022-01-24T12:46:40.208Z\",\n  \"data\": {\n    \"taskId\": \"634\",\n    \"location\": {\n      \"address\": \"string\",\n      \"latitude\": 25.65,\n      \"longitude\": 54.6653\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "915f8270-5f3d-4117-9279-168a7f1b4b60",
+              "name": "ValidationError",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "create-gig-event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-username",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"extUserId\": \"56\",\n  \"time\": \"2022-01-24T12:46:40.208Z\",\n  \"data\": {\n    \"taskId\": \"634\",\n    \"location\": {\n      \"address\": \"string\",\n      \"latitude\": 25.65,\n      \"longitude\": 54.6653\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"error\": \"ValidationError\",\n  \"message\": \"\\\"lastName\\\" is required\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://platform-api.cachet.me",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-username"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6c3d6f97-1cfa-426f-b69e-e3947bb2cefa",
+    "name": "Cachet Parking Connect Gig-Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nCachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets. Cachet offers a full parking solution  where you just send us the coordinates of the events and Cachet will handle everything else. \n\n# Getting started\n\n1. Contact Cachet to get access to the API at kalle@cachet.me\n2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take actions and manage your parking.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n\n\nContact Support:\n Name: Cachet OÜ\n Email: devs@cachet.me",
+      "type": "text/plain"
+    }
+  }
+}

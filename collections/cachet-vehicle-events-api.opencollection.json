@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Cachet Parking Connect Vehicle events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-username",
+      "value": "{{x-api-username}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicle events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "/vehicle-events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://platform-api.cachet.me/vehicle-events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Based on the data sent to the endpoint Cachet will handle the event and do whatever needs to be done to manage the parking related topics for this event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
