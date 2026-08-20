@@ -37,6 +37,15 @@ image: https://cachet.me/assets/img/social_share.jpg
 tags:
 - Company
 - Insurance
+- Insurtech
+- Mobility
+- Gig Economy
+- Car Sharing
+- Embedded Insurance
+- Event
+tags_raw:
+- Company
+- Insurance
 - InsurTech
 - Mobility
 - Gig Economy
@@ -86,6 +95,8 @@ apis:
   humanURL: https://docs.cachet.me/parking
   baseURL: https://platform-api.cachet.me
   tags:
+  - Vehicle Events
+  tags_raw:
   - Vehicle events
   properties:
   - type: OpenAPI
