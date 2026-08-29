@@ -1,6 +1,6 @@
-generated: '2026-07-18'
-method: derived
-source: arazzo/cachet-gig-onboarding.yml
+x-generated: '2026-07-18'
+x-method: derived
+x-source: arazzo/cachet-gig-onboarding.yml
 workflows:
   - file: cachet-gig-onboarding.yml
     workflowId: onboardWorkerAndReportTask
