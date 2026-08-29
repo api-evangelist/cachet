@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Cachet Parking Connect API
+  title: Cachet Partners Connect API
   termsOfService: https://cachet.me/en/terms-conditions/terms-of-use/
   contact:
     name: Cachet OÜ
@@ -12,12 +12,12 @@ info:
     url: https://cachet.me/en/terms-conditions/terms-of-use/
   x-logo:
     url: web/logo.png
-  description: "# Introduction\n\nCachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets. Cachet offers a full parking solution  where you just send us the coordinates of the events and Cachet will handle everything else. \n\n# Getting started\n\n1. Contact Cachet to get access to the API at kalle@cachet.me\n2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take actions and manage your parking.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n"
+  description: "# Introduction\n\nCachet partners API can be used to embed Cachet link into the partner application.  API call is made on the click of a button and customer data is sent to Cachet server.  Cachet will return a redirection link which will already prefill data for the customer  to make the onboarding process much smoother. \n\n# Getting started\n\n1. Contact Cachet at sales@cachet.me to get access to the API\n2. Use /connect endpoint to send the agreed user data to Cachet and receive a redirection link.\n3. Redirect the customer to this link and let Cachet handle everything for the customer onboarding.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n"
 servers:
-- url: https://platform-api.cachet.me
+- url: https://partners.cachet.me
   description: Production
 - description: Development
-  url: https://dev-platorm-api.cachet.me
+  url: https://dev-partners.cachet.me
 security:
 - x-api-username: []
   x-api-key: []
@@ -172,12 +172,3 @@ components:
       type: apiKey
       in: header
       description: API Key provided by Cachet IT
-securityDefinitions:
-  APIKeyHeader:
-    type: apiKey
-    name: x-api-key
-    in: header
-  APIUsernameHeader:
-    type: apiKey
-    name: x-api-username
-    in: header
