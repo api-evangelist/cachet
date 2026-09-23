@@ -15,27 +15,7 @@ info:
   description: '# Introduction
 
 
-    Cachet Verify API can be used as a single method to exchange task based data between gig-worker platforms & Cachet. This API documentation provides information about which event triggers which API and when should the events be set up at the platform’s end. Please follow the steps below:
-
-
-    # Getting started
-
-
-    1. Make sure that the data for already registered gig-worker on your platform has been sent to Cachet before you start using Cachet Verify API
-
-    2. Use /create-user API every time you register a new gig-worker in your platform
-
-    3. Use /create-gig-event API every time a job is created at your platform. It’s crucial to note here that this API is driven by two events a) starting of the job and b) finishing of the job. Please ensure that the data is exchanged on both of these events
-
-
-    # Authentication
-
-
-    Authentication is done via Security headers.
-
-    Each request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.
-
-    '
+    Cachet Verify API can be used as a single method to exchange task based data between gig-worker platforms & Cachet.'
 servers:
 - url: https://platform-api.cachet.me
   description: Production
@@ -68,7 +48,73 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateGigEventInput'
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+            - message
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+            - statusCode
+            - error
+            - message
+    TaskCreated:
+      description: TaskCreated response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+            required:
+            - status
+          examples:
+            example-1:
+              value:
+                status: OK
   schemas:
+    Location:
+      title: Location
+      type: object
+      description: Location object
+      properties:
+        latitude:
+          type: number
+          format: float
+          example: 25.65
+        longitude:
+          type: number
+          format: float
+          example: 54.6653
+        address:
+          type: string
+      required:
+      - address
     CreateGigEventInput:
       title: CreateTaskInput
       type: object
@@ -120,72 +166,6 @@ components:
       - extUserId
       - time
       - data
-    Location:
-      title: Location
-      type: object
-      description: Location object
-      properties:
-        latitude:
-          type: number
-          format: float
-          example: 25.65
-        longitude:
-          type: number
-          format: float
-          example: 54.6653
-        address:
-          type: string
-      required:
-      - address
-  responses:
-    TaskCreated:
-      description: TaskCreated response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                example: OK
-            required:
-            - status
-          examples:
-            example-1:
-              value:
-                status: OK
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Unauthorized
-            required:
-            - message
-    ValidationError:
-      description: ValidationError
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              statusCode:
-                type: number
-                example: 500
-              error:
-                type: string
-                example: ValidationError
-              message:
-                type: string
-                example: '"lastName" is required'
-            required:
-            - statusCode
-            - error
-            - message
   securitySchemes:
     x-api-username:
       name: x-api-username

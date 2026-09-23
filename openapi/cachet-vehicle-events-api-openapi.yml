@@ -12,7 +12,10 @@ info:
     url: https://cachet.me/en/terms-conditions/terms-of-use/
   x-logo:
     url: web/logo.png
-  description: "# Introduction\n\nCachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets. Cachet offers a full parking solution  where you just send us the coordinates of the events and Cachet will handle everything else. \n\n# Getting started\n\n1. Contact Cachet to get access to the API at kalle@cachet.me\n2. Use /vehicle-events endpoint to send different events to Cachet on which Cachet will take actions and manage your parking.\n\n# Authentication\n\nAuthentication is done via Security headers.\nEach request sent to the Cachet Platform API need to have headers `x-api-key`and `x-api-username` which are both provided by the Cachet IT Team.\n"
+  description: '# Introduction
+
+
+    Cachet Parking API is meant for car-sharing companies who would like to make it easier to manage all the parking related topics for their fleets.'
 servers:
 - url: https://platform-api.cachet.me
   description: Production
@@ -22,13 +25,13 @@ security:
 - x-api-username: []
   x-api-key: []
 tags:
-- name: Vehicle events
+- name: Vehicle Events
   description: Used to notify Cachet about vehicle events
 paths:
   /vehicle-events:
     post:
       tags:
-      - Vehicle events
+      - Vehicle Events
       summary: /vehicle-events
       operationId: post-vehicle-events
       description: Based on the data sent to the endpoint Cachet will handle the event and do whatever needs to be done to manage the parking related topics for this event
@@ -46,19 +49,56 @@ paths:
         '500':
           $ref: '#/components/responses/ValidationError'
 components:
+  schemas:
+    VehicleEvent:
+      title: VehicleEvent
+      type: object
+      required:
+      - status
+      - time
+      - licenseNr
+      - data
+      description: Payload for the vehicle-events
+      properties:
+        type:
+          type: string
+          description: event type
+          enum:
+          - TRIP_START
+          - TRIP_END
+          - VEHICLE_ADDED
+          example: TRIP_END
+        licenseNr:
+          type: licenseNr
+          description: vehicle registration number
+          example: 123ABC
+        time:
+          type: string
+          description: event occuring time
+          example: '2021-03-02T11:10:05+02:00'
+        data:
+          $ref: '#/components/schemas/VehicleEventData'
+    VehicleEventData:
+      type: object
+      required:
+      - latitude
+      - longitude
+      properties:
+        latitude:
+          type: number
+          format: float
+          description: latitude of event location
+          example: 59.43671845969525
+        longitude:
+          type: number
+          format: float
+          description: longitude of event location
+          example: 24.739982267816057
+        isElectricVehicle:
+          type: boolean
+          description: set to true in case electrical vehicle to exclude free zones for EVs
+          example: true
   responses:
-    VehicleEventResponse:
-      description: Vehicle event response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              success:
-                type: boolean
-                example: true
-            required:
-            - success
     Unauthorized:
       description: Unauthorized
       content:
@@ -91,55 +131,18 @@ components:
             - statusCode
             - error
             - message
-  schemas:
-    VehicleEventData:
-      type: object
-      required:
-      - latitude
-      - longitude
-      properties:
-        latitude:
-          type: number
-          format: float
-          description: latitude of event location
-          example: 59.43671845969525
-        longitude:
-          type: number
-          format: float
-          description: longitude of event location
-          example: 24.739982267816057
-        isElectricVehicle:
-          type: boolean
-          description: set to true in case electrical vehicle to exclude free zones for EVs
-          example: true
-    VehicleEvent:
-      title: VehicleEvent
-      type: object
-      required:
-      - status
-      - time
-      - licenseNr
-      - data
-      description: Payload for the vehicle-events
-      properties:
-        type:
-          type: string
-          description: event type
-          enum:
-          - TRIP_START
-          - TRIP_END
-          - VEHICLE_ADDED
-          example: TRIP_END
-        licenseNr:
-          type: licenseNr
-          description: vehicle registration number
-          example: 123ABC
-        time:
-          type: string
-          description: event occuring time
-          example: '2021-03-02T11:10:05+02:00'
-        data:
-          $ref: '#/components/schemas/VehicleEventData'
+    VehicleEventResponse:
+      description: Vehicle event response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+            required:
+            - success
   securitySchemes:
     x-api-username:
       name: x-api-username
