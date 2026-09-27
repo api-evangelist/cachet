@@ -48,55 +48,6 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateGigEventInput'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Unauthorized
-            required:
-            - message
-    ValidationError:
-      description: ValidationError
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              statusCode:
-                type: number
-                example: 500
-              error:
-                type: string
-                example: ValidationError
-              message:
-                type: string
-                example: '"lastName" is required'
-            required:
-            - statusCode
-            - error
-            - message
-    TaskCreated:
-      description: TaskCreated response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                example: OK
-            required:
-            - status
-          examples:
-            example-1:
-              value:
-                status: OK
   schemas:
     Location:
       title: Location
@@ -166,6 +117,55 @@ components:
       - extUserId
       - time
       - data
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+            - message
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+            - statusCode
+            - error
+            - message
+    TaskCreated:
+      description: TaskCreated response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+            required:
+            - status
+          examples:
+            example-1:
+              value:
+                status: OK
   securitySchemes:
     x-api-username:
       name: x-api-username

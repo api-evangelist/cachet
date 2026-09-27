@@ -50,25 +50,17 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   responses:
-    ValidationError:
-      description: ValidationError
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
             type: object
             properties:
-              statusCode:
-                type: number
-                example: 500
-              error:
-                type: string
-                example: ValidationError
               message:
                 type: string
-                example: '"lastName" is required'
+                example: Unauthorized
             required:
-            - statusCode
-            - error
             - message
     UserCreated:
       description: Account successfully created
@@ -88,17 +80,25 @@ components:
                     type: boolean
             required:
             - status
-    Unauthorized:
-      description: Unauthorized
+    ValidationError:
+      description: ValidationError
       content:
         application/json:
           schema:
             type: object
             properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
               message:
                 type: string
-                example: Unauthorized
+                example: '"lastName" is required'
             required:
+            - statusCode
+            - error
             - message
   schemas:
     CreateUserInput:
