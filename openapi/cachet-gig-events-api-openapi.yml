@@ -118,18 +118,6 @@ components:
       - time
       - data
   responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Unauthorized
-            required:
-            - message
     ValidationError:
       description: ValidationError
       content:
@@ -149,6 +137,18 @@ components:
             required:
             - statusCode
             - error
+            - message
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
             - message
     TaskCreated:
       description: TaskCreated response

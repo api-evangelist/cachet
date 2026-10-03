@@ -49,7 +49,72 @@ paths:
         '500':
           $ref: '#/components/responses/ValidationError'
 components:
+  responses:
+    VehicleEventResponse:
+      description: Vehicle event response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+            required:
+            - success
+    ValidationError:
+      description: ValidationError
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                example: 500
+              error:
+                type: string
+                example: ValidationError
+              message:
+                type: string
+                example: '"lastName" is required'
+            required:
+            - statusCode
+            - error
+            - message
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+            required:
+            - message
   schemas:
+    VehicleEventData:
+      type: object
+      required:
+      - latitude
+      - longitude
+      properties:
+        latitude:
+          type: number
+          format: float
+          description: latitude of event location
+          example: 59.43671845969525
+        longitude:
+          type: number
+          format: float
+          description: longitude of event location
+          example: 24.739982267816057
+        isElectricVehicle:
+          type: boolean
+          description: set to true in case electrical vehicle to exclude free zones for EVs
+          example: true
     VehicleEvent:
       title: VehicleEvent
       type: object
@@ -78,71 +143,6 @@ components:
           example: '2021-03-02T11:10:05+02:00'
         data:
           $ref: '#/components/schemas/VehicleEventData'
-    VehicleEventData:
-      type: object
-      required:
-      - latitude
-      - longitude
-      properties:
-        latitude:
-          type: number
-          format: float
-          description: latitude of event location
-          example: 59.43671845969525
-        longitude:
-          type: number
-          format: float
-          description: longitude of event location
-          example: 24.739982267816057
-        isElectricVehicle:
-          type: boolean
-          description: set to true in case electrical vehicle to exclude free zones for EVs
-          example: true
-  responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: Unauthorized
-            required:
-            - message
-    ValidationError:
-      description: ValidationError
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              statusCode:
-                type: number
-                example: 500
-              error:
-                type: string
-                example: ValidationError
-              message:
-                type: string
-                example: '"lastName" is required'
-            required:
-            - statusCode
-            - error
-            - message
-    VehicleEventResponse:
-      description: Vehicle event response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              success:
-                type: boolean
-                example: true
-            required:
-            - success
   securitySchemes:
     x-api-username:
       name: x-api-username

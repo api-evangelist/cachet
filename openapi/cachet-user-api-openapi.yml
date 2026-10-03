@@ -62,24 +62,6 @@ components:
                 example: Unauthorized
             required:
             - message
-    UserCreated:
-      description: Account successfully created
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              status:
-                type: string
-                description: Status of the user creation
-                example: OK
-              message:
-                type: object
-                properties:
-                  accountCreated:
-                    type: boolean
-            required:
-            - status
     ValidationError:
       description: ValidationError
       content:
@@ -100,6 +82,24 @@ components:
             - statusCode
             - error
             - message
+    UserCreated:
+      description: Account successfully created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Status of the user creation
+                example: OK
+              message:
+                type: object
+                properties:
+                  accountCreated:
+                    type: boolean
+            required:
+            - status
   schemas:
     CreateUserInput:
       title: CreateUserInput
