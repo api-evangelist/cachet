@@ -50,18 +50,6 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   responses:
-    VehicleEventResponse:
-      description: Vehicle event response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              success:
-                type: boolean
-                example: true
-            required:
-            - success
     ValidationError:
       description: ValidationError
       content:
@@ -82,6 +70,18 @@ components:
             - statusCode
             - error
             - message
+    VehicleEventResponse:
+      description: Vehicle event response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+            required:
+            - success
     Unauthorized:
       description: Unauthorized
       content:
@@ -95,26 +95,6 @@ components:
             required:
             - message
   schemas:
-    VehicleEventData:
-      type: object
-      required:
-      - latitude
-      - longitude
-      properties:
-        latitude:
-          type: number
-          format: float
-          description: latitude of event location
-          example: 59.43671845969525
-        longitude:
-          type: number
-          format: float
-          description: longitude of event location
-          example: 24.739982267816057
-        isElectricVehicle:
-          type: boolean
-          description: set to true in case electrical vehicle to exclude free zones for EVs
-          example: true
     VehicleEvent:
       title: VehicleEvent
       type: object
@@ -143,6 +123,26 @@ components:
           example: '2021-03-02T11:10:05+02:00'
         data:
           $ref: '#/components/schemas/VehicleEventData'
+    VehicleEventData:
+      type: object
+      required:
+      - latitude
+      - longitude
+      properties:
+        latitude:
+          type: number
+          format: float
+          description: latitude of event location
+          example: 59.43671845969525
+        longitude:
+          type: number
+          format: float
+          description: longitude of event location
+          example: 24.739982267816057
+        isElectricVehicle:
+          type: boolean
+          description: set to true in case electrical vehicle to exclude free zones for EVs
+          example: true
   securitySchemes:
     x-api-username:
       name: x-api-username
