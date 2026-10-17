@@ -70,18 +70,6 @@ components:
             - statusCode
             - error
             - message
-    VehicleEventResponse:
-      description: Vehicle event response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              success:
-                type: boolean
-                example: true
-            required:
-            - success
     Unauthorized:
       description: Unauthorized
       content:
@@ -94,6 +82,18 @@ components:
                 example: Unauthorized
             required:
             - message
+    VehicleEventResponse:
+      description: Vehicle event response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+            required:
+            - success
   schemas:
     VehicleEvent:
       title: VehicleEvent

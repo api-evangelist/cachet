@@ -98,23 +98,6 @@ components:
             required:
             - message
   schemas:
-    Location:
-      title: Location
-      type: object
-      description: Location object
-      properties:
-        latitude:
-          type: number
-          format: float
-          example: 25.65
-        longitude:
-          type: number
-          format: float
-          example: 54.6653
-        address:
-          type: string
-      required:
-      - address
     CreateGigEventInput:
       title: CreateTaskInput
       type: object
@@ -166,6 +149,23 @@ components:
       - extUserId
       - time
       - data
+    Location:
+      title: Location
+      type: object
+      description: Location object
+      properties:
+        latitude:
+          type: number
+          format: float
+          example: 25.65
+        longitude:
+          type: number
+          format: float
+          example: 54.6653
+        address:
+          type: string
+      required:
+      - address
   securitySchemes:
     x-api-username:
       name: x-api-username
