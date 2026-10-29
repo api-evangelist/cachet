@@ -64,6 +64,130 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Cachet is a company surfaced as a portfolio company of techstars and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Cachet OÜ is an Estonian InsurTech that provides adaptive, usage-based insurance for digital platforms and their users across new mobility, gig work, and car-sharing. Digital platforms integrate Cachet through three inbound event APIs: the Parking API (car-sharing fleets stream vehicle events so Cachet manages parking), the Verify / Platform API (gig-work platforms register workers and push task events to drive worker protection), and the Partners API (embed a prefilled Cachet onboarding link into a partner app). All three are OpenAPI 3.1 and authenticated with issued x-api-key and x-api-username headers. Cachet is backed by Techstars; notable platform clients include Bolt, Bird, Ryde, and TaskRabbit.
 
-Backed by: techstars — https://cachet.me/
+**Areas:** Company · Insurance · Insurtech · Mobility · Gig Economy · Car Sharing · Embedded Insurance · Event
+
+## Cachet on APIs.io
+
+Everything profiled for Cachet is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cachet/](https://apis.io/providers/cachet/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Cachet Connect API](https://apis.io/apis/cachet/cachet-connect-api/) — Endpoint where to send the connect request
+- [Cachet Gig-Events API](https://apis.io/apis/cachet/cachet-gig-events-api/) — Event actions which are sent by the platform to Cachet involving gig-workers tasks done on the platform
+- [Cachet User API](https://apis.io/apis/cachet/cachet-user-api/) — User actions to send user-related data from platform to Cachet
+- [Cachet Vehicle events API](https://apis.io/apis/cachet/cachet-vehicle-events-api/) — Used to notify Cachet about vehicle events
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (1)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Cachet gig-worker onboarding and task reporting](https://apis.io/arazzos/cachet/cachet-gig-onboarding/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [cachet](https://apis.io/servers/cachet/cachet/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Cachet Agentic Access](https://apis.io/agentic-access/cachet/cachet-agentic-access/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Cachet Parking Connect API](https://apis.io/collections/cachet/open-cachet-connect-api/)
+- [Cachet Parking Connect Gig-Events API](https://apis.io/collections/cachet/open-cachet-gig-events-api/)
+- [Cachet Parking Connect User API](https://apis.io/collections/cachet/open-cachet-user-api/)
+- [Cachet Parking Connect Vehicle events API](https://apis.io/collections/cachet/open-cachet-vehicle-events-api/)
+
+#### Overlays (3)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Cachet Parking Overlay](https://apis.io/overlays/cachet/cachet-parking-overlay/)
+- [Cachet Partners Overlay](https://apis.io/overlays/cachet/cachet-partners-overlay/)
+- [Cachet Verify Overlay](https://apis.io/overlays/cachet/cachet-verify-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Cachet Authentication](https://apis.io/security/cachet/cachet-authentication/)
+- [Cachet Domain Security](https://apis.io/security/cachet/cachet-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://cachet.me/)
+- [Documentation](https://docs.cachet.me/)
+- [API reference](https://docs.cachet.me/)
+- [Pricing](https://cachet.me/en/pricing)
+- [Sign up](https://app.cachet.me/)
+- [Support](https://help.cachet.me/en/)
+- [Blog](https://cachet.me/en/blog)
+- [Terms of service](https://cachet.me/en/terms-conditions)
+- [Privacy policy](https://cachet.me/en/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 38.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 51.4 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 54.2 |
+| Access clarity | 31.6 |
+
+**Agent readiness 18.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.9** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cachet/](https://apis.io/providers/cachet/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cachet: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cachet/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
